@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Dimensions, ImageBackground, Pressable, ScrollView, StyleSheet, Text, TextInput, View, Image} from 'react-native';
+import { Dimensions, ImageBackground, Pressable, ScrollView, StyleSheet, Text, TextInput, View, Image, Alert} from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -61,11 +61,18 @@ const UserGuestBook = () => {
 }
 
 function PrincessScreen() {
+  const alert_text = "It shows you the weather and sunrise and sunset times from Princess and Jerry's favorite cities :D";
+
   return (
     <View style={styles.princess_container}>
       <StatusBar style="auto" />
       <ScrollView>
         <Text style={[{verticalAlign: 'top'}, styles.header]}>Welcome to Princess' World!</Text>
+        <Pressable 
+          style={{backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', padding: 10, marginHorizontal: 80, marginBottom: 20, borderRadius: 5,}} 
+          onPress={() => Alert.alert("Glad you asked!", alert_text)}>
+          <Text>What is this?</Text>
+        </Pressable>
         <View style={{display: 'inline-block', verticalAlign: 'middle'}}>
           <WeatherData cityID={'1701668'}/>
           <WeatherData cityID={'4221552'}/>
