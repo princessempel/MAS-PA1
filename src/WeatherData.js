@@ -18,8 +18,7 @@ export const WeatherData = ({cityID}) => {
           setTemp(data.main.temp)
           setSunrise(new Date(data.sys.sunrise * 1000).toLocaleTimeString("en-US"))
           setSunset(new Date(data.sys.sunset * 1000).toLocaleTimeString("en-US"))
-          console.log(sunrise)
-        })
+         })
   
     return (
       <View style={styles.weather_container}>

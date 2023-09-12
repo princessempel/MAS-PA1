@@ -1,12 +1,64 @@
 import { StatusBar } from 'expo-status-bar';
-import { Dimensions, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, ImageBackground, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useState } from 'react';
 
-import { WeatherData } from './WeatherData';
+import { WeatherData } from './src/WeatherData';
+
+import { Amplify, API } from 'aws-amplify';
+import awsExports from './src/aws-exports';
+Amplify.configure(awsExports)
+
+const myAPI = 'apib01f9e91';
+const path = '/users'
 
 const Stack = createNativeStackNavigator();
+
+const UserGuestBook = () => {
+  const [input, setInput] = useState('')
+  const [users, setUsers] = useState([])
+
+  function getUser(e) {
+    let userID = e.input
+    API.get(myAPI, path + '/' + userID)
+      .then(response => {
+        console.log(response)
+        let newUsers = [...users]
+        newUsers.push(response)
+        setUsers(newUsers)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
+  return (
+    <View style={styles.container}>
+      <Text style={[{color: 'white'}, styles.header]}>The App Guest Book</Text>
+      <TextInput
+        style={{padding: 10, borderRadius: 5}}
+        backgroundColor='white'
+        onChangeText={(e) => setInput(e)}
+        placeholder='Enter Name'
+        value={input}
+        />
+      <Pressable 
+        style={styles.button}
+        onPress={() => getUser({input})}>
+        <Text>Add User</Text>
+      </Pressable>
+      {users.map((thisUser, index) => {
+        return (
+          <View>
+            <Text style={{fontWeight: 'bold', color: 'white'}}>{thisUser.userID}</Text>
+          </View>
+        )
+      })}
+    </View>
+  )
+}
 
 function PrincessScreen() {
   return (
@@ -36,9 +88,11 @@ function HomeScreen({navigation}) {
         <Text style={[{color: 'white'}, styles.header]}>Welcome to Our Universe!</Text>
         <Pressable
           style={styles.button}
-          onPress={() => navigation.navigate('Princess')}>
+          onPress={() => navigation.navigate('Princess')}
+          >
             <Text>Princess' World</Text>
         </Pressable>
+        <UserGuestBook/>
       </View>
     </View>
   );
