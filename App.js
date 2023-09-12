@@ -41,7 +41,7 @@ const UserGuestBook = () => {
         style={{padding: 10, borderRadius: 5}}
         backgroundColor='white'
         onChangeText={(e) => setInput(e)}
-        placeholder='Enter Name'
+        placeholder='Enter First Name'
         value={input}
         />
       <Pressable 
@@ -84,9 +84,11 @@ function PrincessScreen() {
 function HomeScreen({navigation}) {
   return (
     <View style={styles.container}>
+      <ScrollView>
       <ImageBackground source={require('./assets/universe-background.jpeg')} 
         style={{ height: Dimensions.get('window').height, width: Dimensions.get('window').width}}
         imageStyle={{opacity: 0.8}} />
+        
       <View style={[{position: 'absolute'}, styles.container]}>
         <StatusBar style="auto" />
         <Text style={[{color: 'white'}, styles.header]}>Welcome to Our Universe!</Text>
@@ -100,6 +102,7 @@ function HomeScreen({navigation}) {
         <Text style={[{color:"white"}, styles.header, {textAlign:"center"}]}>You've been bamboozed by a knife-holding Pikachu!</Text>
         <Image source={require('./assets/pkachu.png')} style={{width: 200, height: 200}} />
       </View>
+      </ScrollView>
     </View>
   );
 }
