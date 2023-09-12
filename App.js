@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Dimensions, ImageBackground, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Dimensions, ImageBackground, Pressable, ScrollView, StyleSheet, Text, TextInput, View, Image} from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -71,6 +71,10 @@ function PrincessScreen() {
           <WeatherData cityID={'4221552'}/>
           <WeatherData cityID={'4180439'}/>
           <WeatherData cityID={'5809844'}/>
+          <Text style={styles.header}>Added by Jerry :)</Text>
+          <WeatherData cityID={'5103116'}/>
+          <WeatherData cityID={'1880252'}/>
+          <WeatherData cityID={'1816670'}/>
         </View>
       </ScrollView>
     </View>
@@ -93,6 +97,8 @@ function HomeScreen({navigation}) {
             <Text>Princess' World</Text>
         </Pressable>
         <UserGuestBook/>
+        <Text style={[{color:"white"}, styles.header, {textAlign:"center"}]}>You've been bamboozed by a knife-holding Pikachu!</Text>
+        <Image source={require('./assets/pkachu.png')} style={{width: 200, height: 200}} />
       </View>
     </View>
   );
